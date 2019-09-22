@@ -3,6 +3,18 @@
 	"ignore": "test",
 	"package": [
 		{
+			"checksumSHA1": "Z/zRBSApcX92ze7/r3VfNm+e92k=",
+			"path": "github.com/aws/aws-sdk-go",
+			"revision": "282a6df30e8bd7786f817c8c5f74041dabc0c549",
+			"revisionTime": "2019-09-20T22:39:09Z"
+		},
+		{
+			"checksumSHA1": "P6s+XzvNb5wLxVLBcbtfKE566vw=",
+			"path": "github.com/foolin/gin-template",
+			"revision": "41efedfb393b61284e602fa3d720cef506d6e0ae",
+			"revisionTime": "2019-04-15T03:47:31Z"
+		},
+		{
 			"checksumSHA1": "qlEzrgKgIkh7y0ePm9BNo1cNdXo=",
 			"path": "github.com/gin-contrib/sse",
 			"revision": "43f0f29dbd2b3f0feeebff91fd9cda22db296938",
