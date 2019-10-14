@@ -5,5 +5,9 @@ import (
 )
 
 func showIndexPage(c *gin.Context) {
-	
+
+	render(c, gin.H{
+		"title": "Sagg Web!",
+	}, "index.html")
 }
+
