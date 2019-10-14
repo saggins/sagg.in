@@ -8,7 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 )
-
+//Item yes
 type Item struct {
 	title string
 	blobs []string
@@ -47,4 +47,35 @@ func getRaws(id string) Item {
 		panic(fmt.Sprintf("Failed to unmarshal Record, %v", err))
 	}
 	return item
+}
+
+func getAllPages() []Item{
+
+	sess := session.Must(session.NewSessionWithOptions(session.Options{
+		SharedConfigState: session.SharedConfigEnable,
+	}))
+	svc := dynamodb.New(sess)
+
+	var TextBlob []Item
+
+	err := svc.ScanPages(&dynamodb.ScanInput{
+		TableName: aws.String("websites"),
+	}, func(page *dynamodb.ScanOutput, last bool) bool {
+		blob := []Item{}
+	
+		err := dynamodbattribute.UnmarshalListOfMaps(page.Items, &blob)
+		if err != nil {
+			 panic(fmt.Sprintf("failed to unmarshal Dynamodb Scan Items, %v", err))
+		}
+	
+		TextBlob = append(TextBlob, blob...)
+	
+		return true // keep paging
+	})
+	if err == nil{ //Keep Close Eye
+		panic(fmt.Sprintf("error"))
+	}
+
+	return TextBlob
+
 }
