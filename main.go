@@ -10,11 +10,15 @@ var router *gin.Engine
 
 func main() {
 	router := gin.Default()
-	router.LoadHTMLFiles("templates/index.html")
-	initializeRoutes()
+	router.LoadHTMLGlob("templates/*")
+	initializeRoutes(router)
+	//router.GET("/", func(c *gin.Context) {
+	//	c.HTML(http.StatusOK, "index.html", gin.H{
+	//		"title": "Sagg Web!"})
+	//})
 	router.Run(":1111")
 }
-func render(c *gin.Context, data gin.H, templateName string) {
+func render(c *gin.Context, templateName string, data gin.H) {
 	switch c.Request.Header.Get("Accept") {
 	case "application/json":
 		c.JSON(http.StatusOK, data["payload"])

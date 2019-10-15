@@ -1,13 +1,15 @@
 package main
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 )
 
 func showIndexPage(c *gin.Context) {
 
-	render(c, gin.H{
-		"title": "Sagg Web!",
-	}, "index.html")
+	c.HTML(http.StatusOK, "index.html", gin.H{
+		"title":   "Sagg Web!",
+		"payload": getAllPages(),
+	})
 }
-
