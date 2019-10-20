@@ -28,12 +28,12 @@ func getRaws(id string) Item {
 	//Get Item
 
 	//Parameters
-	tableName := "websites"
+	tableName := "saggweb"
 
 	result, err := svc.GetItem(&dynamodb.GetItemInput{
 		Key: map[string]*dynamodb.AttributeValue{
 			"id": {
-				N: aws.String(id),
+				S: aws.String(id),
 			},
 		},
 		TableName: aws.String(tableName),
@@ -59,7 +59,7 @@ func getAllPages() []Item {
 	}))
 	svc := dynamodb.New(sess)
 	input := &dynamodb.ScanInput{
-		TableName: aws.String("websites"),
+		TableName: aws.String("saggweb"),
 	}
 
 	result, err := svc.Scan(input)
