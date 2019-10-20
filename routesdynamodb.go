@@ -2,17 +2,19 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 )
+
 //Item yes
 type Item struct {
-	title string
-	blobs []string
-	id    int
+	Blobs []string `json:"blobs"`
+	Title string   `json:"title"`
+	ID    string   `json:"id"`
 }
 
 func getRaws(id string) Item {
@@ -28,12 +30,12 @@ func getRaws(id string) Item {
 	tableName := "websites"
 
 	result, err := svc.GetItem(&dynamodb.GetItemInput{
-		TableName: aws.String(tableName),
 		Key: map[string]*dynamodb.AttributeValue{
 			"id": {
 				N: aws.String(id),
 			},
 		},
+		TableName: aws.String(tableName),
 	})
 
 	if err != nil {
@@ -49,32 +51,43 @@ func getRaws(id string) Item {
 	return item
 }
 
-func getAllPages() []Item{
+func getAllPages() []Item {
 
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
 		SharedConfigState: session.SharedConfigEnable,
 	}))
 	svc := dynamodb.New(sess)
+	input := &dynamodb.ScanInput{
+		TableName: aws.String("websites"),
+	}
+
+	result, err := svc.Scan(input)
+	if err != nil {
+		panic(err.Error())
+	}
 
 	var TextBlob []Item
 
-	err := svc.ScanPages(&dynamodb.ScanInput{
-		TableName: aws.String("websites"),
-	}, func(page *dynamodb.ScanOutput, last bool) bool {
-		blob := []Item{}
-	
-		err := dynamodbattribute.UnmarshalListOfMaps(page.Items, &blob)
+	for _, i := range result.Items {
+
+		things := Item{}
+		err = dynamodbattribute.UnmarshalMap(i, &things)
+
 		if err != nil {
-			 panic(fmt.Sprintf("failed to unmarshal Dynamodb Scan Items, %v", err))
+			fmt.Println("Got error unmarshalling:")
+			fmt.Println(err.Error())
+			os.Exit(1)
 		}
-	
-		TextBlob = append(TextBlob, blob...)
-	
-		return true // keep paging
-	})
-	if err == nil{ //Keep Close Eye
-		panic(fmt.Sprintf("error"))
+
+		TextBlob = append(TextBlob, things)
+
 	}
+
+	//limit := len(result.Items)
+
+	//for i:=0;i<=limit;i++{
+
+	//}
 
 	return TextBlob
 
