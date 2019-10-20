@@ -12,9 +12,10 @@ import (
 
 //Item yes
 type Item struct {
-	Blobs []string `json:"blobs"`
-	Title string   `json:"title"`
-	ID    string   `json:"id"`
+	Blobs      []string `json:"blobs"`
+	Title      string   `json:"title"`
+	ID         string   `json:"id"`
+	BlobsTitle []string `json:"blobstitle"`
 }
 
 func getRaws(id string) Item {
