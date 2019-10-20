@@ -17,3 +17,17 @@ func showIndexPage(c *gin.Context) {
 	})
 
 }
+
+func getPage(c *gin.Context) {
+	navpayload := getAllPages()
+	page := getRaws(c.Param("page_id"))
+
+	c.HTML(http.StatusOK, "nav.html", gin.H{
+		"payload": navpayload,
+	})
+	render(c, "page.html", gin.H{
+		"title":   page.Title,
+		"payload": page,
+	})
+
+}
