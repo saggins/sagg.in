@@ -9,5 +9,7 @@ func initializeRoutes(r *gin.Engine) {
 	pageroutes := r.Group("/page")
 	{
 		pageroutes.GET("/view/:page_id", getPage)
+		pageroutes.POST("/view/mcname/", MCName)
 	}
+
 }
