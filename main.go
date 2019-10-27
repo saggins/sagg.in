@@ -1,10 +1,8 @@
 package main
 
 import (
-	"log"
 	"net/http"
 
-	"github.com/gin-gonic/autotls"
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,7 +16,7 @@ func main() {
 	//	c.HTML(http.StatusOK, "index.html", gin.H{
 	//		"title": "Sagg Web!"})
 	//})
-	log.Fatal(autotls.Run(router, "sagg.in"))
+	http.ListenAndServeTLS(":443", "/etc/letsencrypt/live/sagg.in/fullchain.pem", "/etc/letsencrypt/live/sagg.in/privkey.pem", nil)
 }
 func render(c *gin.Context, templateName string, data gin.H) {
 	switch c.Request.Header.Get("Accept") {
