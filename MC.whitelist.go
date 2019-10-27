@@ -1,38 +1,45 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
-	"io/ioutil"
-	"os"
-
+	"github.com/gin-gonic/gin"
 	"github.com/minotar/minecraft"
 )
 
-type whitelist struct {
-	mcuuid string `json:"uuid"`
-	mcuser string `json:"name"`
+type Whitelist struct {
+	Mcuuid string `json:"uuid"`
+	Mcuser string `json:"name"`
 }
 
-func MCwhitelist(username postmsg, wJSON string) {
+func MCwhitelist(username postmsg, wJSON string, c *gin.Context) {
 
 	minecrafts := minecraft.NewMinecraft()
 	uuid, err := minecrafts.GetUUID(username.MCuser)
-	if err != nil {
-		fmt.Println("Error when getting uuid")
-	}
-	msg := whitelist{
-		mcuuid: uuid,
-		mcuser: username.MCuser,
-	}
+	if err == nil {
+		msg := Whitelist{
+			Mcuuid: uuid,
+			Mcuser: username.MCuser,
+		}
 
-	postNames(msg)
-	exsistingList := whitelistScan()
+		postNames(msg)
+		exsistingList := whitelistScan()
 
-	b, err := json.Marshal(exsistingList)
-	if err != nil {
-		fmt.Println("Error when marshaling")
+		//b, err := json.Marshal(exsistingList)
+		//if err != nil {
+		//	fmt.Println("Error when marshaling")
+		//}
+
+		//s := wJSON + "whitelist.json"
+		//ioutil.WriteFile(s, b, os.ModePerm)
+		RconWhitelist(exsistingList)
+
+		render(c, "error.html", gin.H{
+			"msg": "WOrkos! You are added",
+		})
+
+	} else {
+		render(c, "error.html", gin.H{
+			"msg": "Username Not found... rip. Try again",
+		})
 	}
-	ioutil.WriteFile("whitelist.json", b, os.ModePerm)
 
 }

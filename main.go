@@ -1,8 +1,10 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
+	"github.com/gin-gonic/autotls"
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,7 +18,7 @@ func main() {
 	//	c.HTML(http.StatusOK, "index.html", gin.H{
 	//		"title": "Sagg Web!"})
 	//})
-	router.Run(":1111")
+	log.Fatal(autotls.Run(router, "sagg.in"))
 }
 func render(c *gin.Context, templateName string, data gin.H) {
 	switch c.Request.Header.Get("Accept") {

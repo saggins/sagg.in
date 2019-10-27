@@ -10,7 +10,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 )
 
-func whitelistScan() []whitelist {
+func whitelistScan() []Whitelist {
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
 		SharedConfigState: session.SharedConfigEnable,
 	}))
@@ -24,11 +24,12 @@ func whitelistScan() []whitelist {
 		panic(err.Error())
 	}
 
-	var Whitelist []whitelist
+	var Mainlist []Whitelist
+	stuff := result.Items
+	for _, i := range stuff {
 
-	for _, i := range result.Items {
+		things := Whitelist{}
 
-		things := whitelist{}
 		err = dynamodbattribute.UnmarshalMap(i, &things)
 
 		if err != nil {
@@ -37,15 +38,15 @@ func whitelistScan() []whitelist {
 			os.Exit(1)
 		}
 
-		Whitelist = append(Whitelist, things)
+		Mainlist = append(Mainlist, things)
 
 	}
 
-	return Whitelist
+	return Mainlist
 
 }
 
-func postNames(names whitelist) {
+func postNames(names Whitelist) {
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
 		SharedConfigState: session.SharedConfigEnable,
 	}))
@@ -55,11 +56,11 @@ func postNames(names whitelist) {
 
 	input := &dynamodb.PutItemInput{
 		Item: map[string]*dynamodb.AttributeValue{
-			"mcuser": {
-				S: aws.String(names.mcuser),
+			"name": {
+				S: aws.String(names.Mcuser),
 			},
-			"mcuuid": {
-				S: aws.String(names.mcuuid),
+			"uuid": {
+				S: aws.String(names.Mcuuid),
 			},
 		},
 		TableName: aws.String("whitelist"),

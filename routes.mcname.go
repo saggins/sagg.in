@@ -11,5 +11,7 @@ type postmsg struct {
 func MCName(c *gin.Context) {
 	var Mcname postmsg
 	c.ShouldBind(&Mcname)
-	MCwhitelist(Mcname, "/home/saggins/Documents/projects/test-minecraft/")
+
+	MCwhitelist(Mcname, "/home/saggins/Documents/projects/test-minecraft/", c)
+
 }
