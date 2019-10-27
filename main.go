@@ -16,6 +16,7 @@ func main() {
 	//	c.HTML(http.StatusOK, "index.html", gin.H{
 	//		"title": "Sagg Web!"})
 	//})
+	//router.Run("172.31.18.164:40000")
 	http.ListenAndServeTLS(":443", "/etc/letsencrypt/live/sagg.in/fullchain.pem", "/etc/letsencrypt/live/sagg.in/privkey.pem", router)
 }
 func render(c *gin.Context, templateName string, data gin.H) {
