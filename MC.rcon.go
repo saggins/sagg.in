@@ -20,7 +20,7 @@ func RconWhitelist(whitelist []Whitelist) {
 		}
 		user:=  w.Mcuser
 		fmt.Println(w.Mcuser)
-		err = l.Cmd("/say " + user)
+		err = l.Cmd("/whitelist add " + user)
 		if err != nil {
 			panic(err.Error())
 		}

@@ -11,5 +11,9 @@ func initializeRoutes(r *gin.Engine) {
 		pageroutes.GET("/view/:page_id", getPage)
 		pageroutes.POST("/view/mcname/", MCName)
 	}
+	mcroutes := r.Group("/mc")
+	{
+		mcroutes.GET("view/players", MCPlayers)
+	}
 
 }

@@ -1,0 +1,13 @@
+
+
+<ul class="list-group">
+        
+    {{ with .payload }}
+        {{ range $.payload }}
+            <li class="list-group-item">
+                {{ .Mcuser }}
+            </li>
+        {{ end }}
+    {{ end }}
+</ul>
+
