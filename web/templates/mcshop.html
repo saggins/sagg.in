@@ -1,0 +1,36 @@
+
+<div class="container">
+    <div class="alert alert-info" role="alert">
+            Use this to <a href="https://sagg.in/page/view/MCShop">Regestar your Shop</a>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Item</th>
+                <th scope="col">Price</th>
+                <th scope="col">Delete?</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{ with .payload }}
+            {{ range $.payload }}
+                <tr>
+                    <td scope="row"> {{ .Name }} </td>
+                    <td>{{ .Item }}</td>
+                    <td>{{ .Price }}</td>
+                    <td> <form action="shop/del" method="POST">
+                        <input type="hidden" name="name" value="{{ .Name }}">
+                        <input type="hidden" name="item" value="{{ .Item }}">
+                        <input type="hidden" name="price" value="{{ .Price }}">
+                        <button type="submit" class="btn btn-danger">X</button>
+                    </form> </td>
+                </tr>
+            {{ end }}
+        {{ end }}
+            </tbody>
+    </table>
+</div>
+
+
