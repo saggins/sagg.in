@@ -1,12 +1,18 @@
 # sagg.in
 
-NTS:
-Commit More frequently so msgs like, "yes" doesn't appear
+Personal website to facilitate minecraft/other community.
 
-Integration with Discord Bot
+Sagg.in exists due to the lack of organization in discord and the need to present information in a clear matter.
+It's written in Go gingonic becuase, of the speed of the webserver. It's supposed to run secondary to a game server.
 
-Integration with Servers
 
-Allow people to do other stuff
+### Goals
 
-Google Ad sense
+Server stuff:
+- [x] Setting routes
+- [ ] Google Oauth
+
+Minecraft Community:
+- [ ] Comprehensive Minecraft Shopping
+- [x] Adding Players to Directory
+
