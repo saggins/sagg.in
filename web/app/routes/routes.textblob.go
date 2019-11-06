@@ -10,21 +10,11 @@ import (
 )
 
 func showIndexPage(c *gin.Context) {
-	page := db.GetRaws("home")
 
 	//just fo nav... we love nav to be loopy
 
-	utlity.Render(c, "page.html", gin.H{
-		"title":   page.Title,
-		"payload": page,
+	utlity.Render(c, "home.html", gin.H{
 	})
-
-	for i := 0; i < len(page.Blobs); i++ {
-		utlity.Render(c, "blobs.html", gin.H{
-			"blobs":      template.HTML(page.Blobs[i]),
-			"blobstitle": template.HTML(page.BlobsTitle[i]),
-		})
-	}
 
 }
 
