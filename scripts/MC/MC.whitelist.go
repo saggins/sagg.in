@@ -16,10 +16,20 @@ func MCwhitelist(username model.Postmsg, wJSON string, c *gin.Context) {
 
 	minecrafts := minecraft.NewMinecraft()
 	uuid, err := minecrafts.GetUUID(username.MCuser)
-	if err == nil {
+	if username.Name=="" {
+		utlity.Render(c, "error.html", gin.H{
+			"msg": "Missing Name",
+		})
+	} else if username.MCuser=="" {
+		utlity.Render(c, "error.html", gin.H{
+			"msg": "Missing Username",
+		})
+	}else if err == nil {
 		msg := model.Whitelist{
 			Mcuuid: uuid,
 			Mcuser: username.MCuser,
+			Name: username.Name,
+			Ip: c.ClientIP(),
 		}
 		
 		db.PostNames(msg)

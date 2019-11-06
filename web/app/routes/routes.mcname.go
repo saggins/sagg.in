@@ -13,7 +13,6 @@ import (
 func MCName(c *gin.Context) {
 	var Mcname model.Postmsg
 	c.ShouldBind(&Mcname)
-
 	mc.MCwhitelist(Mcname, "/home/saggins/Documents/projects/test-minecraft/", c)
 
 }

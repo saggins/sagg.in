@@ -1,13 +1,22 @@
-
-
-<ul class="list-group">
-        
-    {{ with .payload }}
-        {{ range $.payload }}
-            <li class="list-group-item">
-                {{ .Mcuser }}
-            </li>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Act name</th>
+                <th scope="col">Userame</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{ with .payload }}
+            {{ range $.payload }}
+                <tr>
+                    <td scope="row"> {{ .Name }} </td>
+                    <td>{{ .Mcuser }}</td>
+                </tr>
+            {{ end }}
         {{ end }}
-    {{ end }}
-</ul>
+            </tbody>
+    </table>
+</div>
+
 
