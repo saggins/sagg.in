@@ -16,3 +16,15 @@ Minecraft Community:
 - [ ] Comprehensive Minecraft Shopping
 - [x] Adding Players to Directory
 
+### Packages:
+
+Gin Stuff:
+- Go gin oauth https://github.com/zalando/gin-oauth2
+- Go Gin https://github.com/gin-gonic/gin
+Aws Stuff:
+- AWS https://aws.amazon.com/sdk-for-go/
+Minecraft Stuff:
+- Rcon https://github.com/bearbin/mcgorcon
+
+
+

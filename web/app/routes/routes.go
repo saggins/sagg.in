@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	
 	mc "github.com/win32prog/sagg.in/scripts/MC"
+	discord "github.com/win32prog/sagg.in/scripts/Discord"
 )
 
 
@@ -24,6 +25,15 @@ func InitializeRoutes(r *gin.Engine) {
 		mcroutes.GET("view/shops", mc.MCShop)
 		mcroutes.POST("view/shop/del", DMShop)
 	}
-
+	discordroutes:= r.Group("/discord")
+	{
+		discordroutes.GET("/view/invite/:discord_id/:discord_avatar", discord.DSPlayers)
+		discordroutes.POST("/view/invite/dsname", discord.DSResult)
+		discordroutes.GET("view/invitelist", discord.Listplayers)
+	}
+	user:= r.Group("/api/private")
+	{
+		
+	}
 
 }

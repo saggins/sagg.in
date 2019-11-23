@@ -1,0 +1,17 @@
+
+<ul class="list-group list-group-flush ">
+    {{ with .payload }}
+        {{ range $.payload }}
+            <li class="list-group-item">
+                <div class="media">
+                    <img src="https://cdn.discordapp.com/avatars/{{ .Userid }}" class="img-thumbnail mr-3" style="width:5%;">
+                    <div class="media-body">
+                        <h5 class="mt-0">{{ .Name }}</h5>
+                    </div>
+                </div>
+            </li>
+            
+        {{ end }}
+    {{ end }}
+</ul>
+    
