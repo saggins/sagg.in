@@ -1,10 +1,10 @@
 package utlity
 
 import (
+	"net/http"
 
 	"github.com/gin-gonic/gin"
-	
-	"net/http"
+	model "github.com/win32prog/sagg.in/web/app/models"
 )
 
 func Render(c *gin.Context, templateName string, data gin.H) {
@@ -16,4 +16,8 @@ func Render(c *gin.Context, templateName string, data gin.H) {
 	default:
 		c.HTML(http.StatusOK, templateName, data)
 	}
+}
+
+func Profile( state string) model.Profile {
+	
 }

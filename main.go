@@ -3,13 +3,16 @@ package main
 import (
 	"net/http"
 	"log"
+	
 	"github.com/gin-gonic/gin"
 	db "github.com/win32prog/sagg.in/web/app/routes"
-	"github.com/zalando/gin-oauth2"
-	"github.com/zalando/gin-oauth2/zalando"
+	"github.com/gin-gonic/contrib/sessions"
+
+
 )
 
 var router *gin.Engine
+var store = sessions.NewCookieStore([]byte("secret"))
 
 func redirect(w http.ResponseWriter, req *http.Request) {
     // remove/add not default ports from req.Host
@@ -25,16 +28,13 @@ func redirect(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 	router := gin.Default()
-	router.Use(ginglog.Logger(3 * time.Second))
-	router.Use(ginoauth2.RequestLogger([]string{"uid"}, "data"))
-	router.Use(gin.Recovery())
-
+	router.Use(sessions.Sessions("goquestsession", store))
 
 	router.LoadHTMLGlob("./web/templates/*")
 	db.InitializeRoutes(router)
 	go http.ListenAndServe(":80", http.HandlerFunc(redirect))
-	//router.Run("172.31.18.164:40000")
-	http.ListenAndServeTLS(":443", "/etc/letsencrypt/live/sagg.in/fullchain.pem", "/etc/letsencrypt/live/sagg.in/privkey.pem", router)
+	router.Run("172.31.18.164:40000")
+	//http.ListenAndServeTLS(":443", "/etc/letsencrypt/live/sagg.in/fullchain.pem", "/etc/letsencrypt/live/sagg.in/privkey.pem", router)
 
 
 	

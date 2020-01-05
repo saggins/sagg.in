@@ -1,3 +1,4 @@
 {
-    "go.gopath": "/home/ubuntu/saggweb/"
+    "go.gopath": "/home/ubuntu/saggweb/",
+    "go.toolsGopath": "/home/ubuntu/saggweb/"
 }
